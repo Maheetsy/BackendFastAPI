@@ -1,0 +1,30 @@
+# --- Archivos de Secretos y Configuración ---
+# Ignora el archivo de variables de entorno (¡MUY IMPORTANTE!)
+.env
+*.log
+
+# --- Entorno Virtual ---
+# Ignora la carpeta del entorno virtual
+venv/
+.venv/
+
+# --- Cache de Python ---
+# Ignora la cache de Python en CUALQUIER subcarpeta
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- Configuración de IDEs ---
+# Ignora las carpetas de configuración de VSCode y PyCharm
+.vscode/
+.idea/
+
+# --- Reportes de Pruebas y Cobertura ---
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Archivos de Sistema Operativo ---
+# Ignora archivos de macOS
+.DS_Store
