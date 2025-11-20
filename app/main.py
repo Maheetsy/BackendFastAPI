@@ -1,13 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base # <-- 'Base' se importa de 'database'
-
-# --- AÑADIR ESTAS LÍNEAS ---
-# Importa los modelos para que SQLAlchemy los "vea"
-# antes de llamar a create_all
 from .models import product, category
-# --- FIN DE LÍNEAS A AÑADIR ---
-
 from .routers import product_router, category_router 
 
 # --- CORREGIR ESTA LÍNEA ---
@@ -29,7 +23,7 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

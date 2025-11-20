@@ -8,5 +8,9 @@ from .product import (
 )
 
 # Importar las clases de category.py para que estén disponibles
-# (Asegúrate de haber creado el archivo app/schemas/category.py)
-from .category import Category, CategoryBase, CategoryCreate
+from .category import (
+    Category,
+    CategoryBase,
+    CategoryCreate,
+    CategoryUpdate,
+)

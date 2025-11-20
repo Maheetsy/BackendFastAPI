@@ -61,14 +61,12 @@ def get_products(
     limit: int = 100,
     include_inactive: bool = False,
 ) -> Sequence[models.Product]:
-    query = (
-        db.query(models.Product)
-        .options(joinedload(models.Product.category))
-        .offset(skip)
-        .limit(limit)
-    )
+    query = db.query(models.Product).options(joinedload(models.Product.category))
+    
     if not include_inactive:
         query = query.filter(models.Product.active.is_(True))
+    
+    query = query.offset(skip).limit(limit)
     return query.all()
 
 
@@ -142,3 +140,29 @@ def activate_product(db: Session, product_id: int) -> models.Product:
     db.commit()
     db.refresh(product)
     return product
+
+
+def put_product(
+    db: Session, product_id: int, product_in: schemas.ProductCreate
+) -> models.Product:
+    """Actualiza completamente un producto (PUT)"""
+    product = _get_product_or_404(db, product_id)
+    _get_category_or_404(db, product_in.category_id)
+
+    product.name = product_in.name
+    product.description = product_in.description
+    product.price = Decimal(product_in.price)
+    product.imagen_url = str(product_in.imagen_url) if product_in.imagen_url else None
+    product.category_id = product_in.category_id
+
+    db.add(product)
+    db.commit()
+    db.refresh(product)
+    return product
+
+
+def delete_product(db: Session, product_id: int) -> None:
+    """Elimina físicamente un producto de la base de datos"""
+    product = _get_product_or_404(db, product_id)
+    db.delete(product)
+    db.commit()

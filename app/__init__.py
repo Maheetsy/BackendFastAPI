@@ -22,14 +22,18 @@ app = FastAPI(
 
 # --- Configuración de CORS ---
 origins = [
+     "http://localhost:8080",      # Flutter web alternativo
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:8080",
+    "http://10.0.2.2:3000",       # Android emulator
+    "http://10.0.2.2:8080",
     "http://localhost",
-    "http://localhost:3000", # Asumiendo Flutter web
-    # Añade aquí la URL de tu app de Flutter desplegada
+    "*"# Añade aquí la URL de tu app de Flutter desplegada
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
