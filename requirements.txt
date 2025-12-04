@@ -5,3 +5,6 @@ pydantic
 pydantic-settings
 PyMySQL
 PyJWT>=2.9.0
+cryptography
+python-multipart
+email-validator
