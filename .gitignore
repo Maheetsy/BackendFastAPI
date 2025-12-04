@@ -2,7 +2,8 @@
 # Ignora el archivo de variables de entorno (¡MUY IMPORTANTE!)
 .env
 *.log
-
+ca.pem
+app/ca.pem
 # --- Entorno Virtual ---
 # Ignora la carpeta del entorno virtual
 venv/

@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine, Base # <-- 'Base' se importa de 'database'
-from .models import product, category
-from .routers import product_router, category_router 
+from app.database import engine, Base    # BIEN (sin punto)
+from app.models import product, category
+from app.routers import product_router, category_router
 
 # --- CORREGIR ESTA LÍNEA ---
 # Llama a Base (de database), no a models.Base
