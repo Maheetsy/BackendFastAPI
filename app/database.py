@@ -7,10 +7,18 @@ import os
 # --- LÓGICA SSL PARA AIVEN ---
 connect_args = {}
 
-# Si estamos usando Aiven (lo detectamos por la url), agregamos el certificado
 if "aivencloud.com" in settings.database_url:
-    # Busca el archivo ca.pem en la misma carpeta donde está este archivo
-    ssl_ca_path = os.path.join(os.path.dirname(__file__), "ca.pem")
+    # 1. Primero intentamos buscar en la ruta de secretos de Render
+    render_secret_path = "/etc/secrets/ca.pem"
+    
+    # 2. Si existe el archivo en Render, usamos ese. Si no, usamos el local.
+    if os.path.exists(render_secret_path):
+        ssl_ca_path = render_secret_path
+        print(f"--> Usando certificado de Render: {ssl_ca_path}")
+    else:
+        # Fallback para tu compu local (busca en la misma carpeta)
+        ssl_ca_path = os.path.join(os.path.dirname(__file__), "ca.pem")
+        print(f"--> Usando certificado Local: {ssl_ca_path}")
     
     connect_args = {
         "ssl": {
